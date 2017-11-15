@@ -11,4 +11,5 @@ We are trying to make a csv report of all the topcics that are in a d2l course. 
 |           | module 2d     |          |
 
 Each column reperents a module in the toc at the root level. 
+
 Each row lists all the topics in order, in that module no matter how deeply nested they are in submodules.
