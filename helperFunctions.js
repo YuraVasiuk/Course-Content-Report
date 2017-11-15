@@ -15,12 +15,12 @@ Dependencies that need to be on the page
  **********************************************/
 function getToc(orgUnitId, getTocCallback) {
     var tocxhr = new XMLHttpRequest();
-    tocxhr.open("GET", "/d2l/api/le/1.15/" + orgUnitId + "/content/toc")
+    tocxhr.open("GET", "/d2l/api/le/1.26/" + orgUnitId + "/content/toc")
     tocxhr.onload = function () {
         if (tocxhr.status == 200) {
             getTocCallback(null, JSON.parse(tocxhr.response));
         } else {
-            getTocCallback(makeRequestErrorObj(tocxhr), null);
+            getTocCallback(tocxhr, null);
         }
 
     }
