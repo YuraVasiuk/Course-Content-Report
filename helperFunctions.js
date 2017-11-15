@@ -10,8 +10,23 @@ Dependencies that need to be on the page
         cdn: https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.10/URI.min.js
 */
 
+
+/*********************************************
+ * function that makes request error objs for the functions below
+ **********************************************/
+function makeRequestErrorObj(request) {
+    return {
+        status: request.status,
+        statusText: request.statusText,
+        responseText: request.responseText,
+        responseURL: request.responseURL
+    }
+}
+
+
 /*********************************************
  * 1 Retrieve table of contents for the specified orgUnitId 
+ * http://docs.valence.desire2learn.com/res/content.html#get--d2l-api-le-(version)-(orgUnitId)-content-toc
  **********************************************/
 function getToc(orgUnitId, getTocCallback) {
     var tocxhr = new XMLHttpRequest();
@@ -20,18 +35,37 @@ function getToc(orgUnitId, getTocCallback) {
         if (tocxhr.status == 200) {
             getTocCallback(null, JSON.parse(tocxhr.response));
         } else {
-            getTocCallback(tocxhr, null);
+            getTocCallback(makeRequestErrorObj(tocxhr), null);
         }
 
     }
     tocxhr.send();
 }
 
+/*********************************************
+ * 2 This function makes the course info valence call 
+ * http://docs.valence.desire2learn.com/res/course.html#get--d2l-api-lp-(version)-courses-(orgUnitId)
+ **********************************************/
+function getCourseInfo(orgUnitId, getcourseInfoCallback) {
+    var pathxhr = new XMLHttpRequest();
+    pathxhr.open("GET", "/d2l/api/lp/1.15/courses/" + orgUnitId)
+    pathxhr.onload = function () {
+        if (pathxhr.status == 200) {
+            var info = JSON.parse(pathxhr.response);
+            getcourseInfoCallback(null, info);
+        } else {
+            getcourseInfoCallback(makeRequestErrorObj(pathxhr), null)
+        }
+
+    }
+    pathxhr.send();
+}
+
 
 /*********************************************
- * 2 Takes a module from a D2L TOC and flattens it to an array of topics
+ * 3 Takes a module from a D2L TOC and flattens it to an array of topics with absolute urls
  **********************************************/
-function TOC2Topics(moduleIn, courseInfo) {
+function TOCModule2TopicsList(moduleIn, courseInfo) {
     var topicsOut;
 
     function getURLFromTopic(topic, courseInfo) {
@@ -93,13 +127,13 @@ function TOC2Topics(moduleIn, courseInfo) {
         }
 
 
-
+         var testing = false
         //for testing
-        if (false && topic.Url.match('#') !== null) {
+        if (testing && topic.Url.match('#') !== null) {
             console.dir(url);
         }
 
-        if (false && topic.TypeIdentifier.match(/scorm/i) !== null) {
+        if (testing && topic.TypeIdentifier.match(/scorm/i) !== null) {
             console.dir(topic.Url);
             console.dir(path);
         }
@@ -111,9 +145,9 @@ function TOC2Topics(moduleIn, courseInfo) {
     function proccssTopics(topics, courseInfo) {
         return topics
             //make sure the topic has a url
-            .filter(function (topic) {
-                return typeof topic.Url !== 'undefined';
-            })
+            // .filter(function (topic) {
+            //     return typeof topic.Url !== 'undefined';
+            // })
             //get the props we want
             .map(function (topic) {
                 return {
