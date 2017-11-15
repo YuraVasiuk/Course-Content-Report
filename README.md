@@ -1,6 +1,8 @@
 # d2l-course-content-report
 
-We are trying to make a csv report of all the topcics that are in a d2l course. That looks like 
+We are trying to make html page that lives in d2l that creates a csv report of all the topcics that are in a d2l course. 
+
+## Format of CSV
 
 | module 1  | module 2      | module 3 |
 | --------- |-------------  | ---------|
