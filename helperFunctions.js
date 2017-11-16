@@ -127,6 +127,7 @@ function TOCModule2TopicsList(moduleIn, courseInfo) {
         }
 
 
+
         var testing = false
         //for testing
         if (testing && topic.Url.match('#') !== null) {
