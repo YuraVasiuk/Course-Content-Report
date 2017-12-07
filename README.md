@@ -1,6 +1,6 @@
 # d2l-course-content-report
 
-We are trying to make html page that lives in d2l that creates a csv report of all the topcics that are in a d2l course. 
+We are trying to make html page that lives in d2l that creates a csv report of all the topics that are in a d2l course. 
 
 ## Format of CSV
 

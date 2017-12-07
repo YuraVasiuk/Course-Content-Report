@@ -1,6 +1,7 @@
-/*eslint-env node, browser*/
-/*eslint no-console:0, no-unused-vars:0, no-undef:02*/
 /*global URI*/
+/*eslint-env node, es6*/
+/*eslint no-unused-vars:1*/
+/*eslint no-console:0*/
 
 /*
 Dependencies that need to be on the page
@@ -9,7 +10,6 @@ Dependencies that need to be on the page
         github: https://github.com/medialize/URI.js
         cdn: https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.10/URI.min.js
 */
-
 
 /*********************************************
  * function that makes request error objs for the functions below
@@ -161,7 +161,7 @@ function TOCModule2TopicsList(moduleIn, courseInfo) {
     }
 
     /********************** TOC2Topics START *****************************/
-    if (module.Modules.length > 0) {
+    if (moduleIn.Modules.length > 0) {
 
         topicsOut = moduleIn.Modules.reduce(function (topics, module) {
             //dig deeper

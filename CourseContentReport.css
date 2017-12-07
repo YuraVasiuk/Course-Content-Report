@@ -5,6 +5,7 @@ h1 {
 }
 
 p {
+    text-align: center;
     color: yellow;
     background-color: blue;
 }
